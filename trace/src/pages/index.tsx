@@ -5,7 +5,7 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { DocumentTextIcon, CubeTransparentIcon } from '@heroicons/react/outline';
 
 // although it's better practice to import your API key as an environment variable, i've instantiated the API key as a constant variable for demo purposes
-const HELIUS_API_KEY = "<YOUR HELIUS API KEY>";
+const HELIUS_API_KEY = process.env.HELIUS_API_KEY;
 
 const Home = () => {
     // react state variables
@@ -41,8 +41,13 @@ const Home = () => {
     // retrieve the specific transaction user wants to view
     const handleTransactionDetails = (signature: string) => {
         const transaction = listOfTxs.find(tx => tx.signature === signature);
-        setTransactionDetails(transaction);
-        setDisplayDetails(true);
+        if (transaction) {
+          setTransactionDetails(transaction);
+          setDisplayDetails(true);
+        } else {
+          toast.error("Transaction not found");
+        }
+       
     };
 
     // update url endpoints whenever wallet changes / set cluster of tx url
