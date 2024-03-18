@@ -16,7 +16,7 @@ const Home = () => {
   const [displayDetails, setDisplayDetails] = React.useState<boolean>(false);
   const [verified, setVerified] = React.useState<boolean>(false);
   const [transactionDetails, setTransactionDetails] = React.useState<{}>({});
-  const [balance, setBalance] = React.useState<number | null>(0);
+  const [balance, setBalance] = React.useState<number >(0);
   const [amount, setAmount] = React.useState<number | null>(0);
   const [txSig, setTxSig] = React.useState<string>("");
   const { connection } = useConnection(); // grab wallet connection string
