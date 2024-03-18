@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/outline";
 // library we use to interact with the solana json rpc api
 import * as web3 from "@solana/web3.js";
+import Image from "next/image";
 import { list } from "postcss";
 
 const Home = () => {
@@ -86,8 +87,14 @@ React.useEffect(() => {
 
   return (
     <main className="min-h-screen  text-white">
+      <div className="flex">
+      <div>
       <h2 className="pt-[100px] mx-[30px] font-extrabold sm:text-[40px]">Securely Verify Cryptocurrency Holdings</h2>
       <p className="mx-[30px] pt-[20px]">Confidently demonstrate ownership of your digital assets without compromising privacy.</p>
+      </div>
+        <Image src={"/image.png"} alt="image" height={500} width={500} />
+      </div>
+      
       {publicKey ? (
         <div className="grid grid-cols-1 bg-[#FC8128] lg:grid-cols-4 gap-4 p-4">
           
@@ -162,7 +169,7 @@ React.useEffect(() => {
          
         </div>
       ) : (
-        <div className="flex justify-center mt-[200px] space-x-[200px]">
+        <div className="flex justify-center mt-[80px] space-x-[200px]">
          
           <button
             onClick={() => {
