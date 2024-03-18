@@ -85,9 +85,11 @@ React.useEffect(() => {
   }, [connection, publicKey]);
 
   return (
-    <main className="min-h-screen text-white">
+    <main className="min-h-screen  text-white">
+      <h2 className="pt-[100px] mx-[30px] font-extrabold sm:text-[40px]">Securely Verify Cryptocurrency Holdings</h2>
+      <p className="mx-[30px] pt-[20px]">Confidently demonstrate ownership of your digital assets without compromising privacy.</p>
       {publicKey ? (
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-1 bg-[#FC8128] lg:grid-cols-4 gap-4 p-4">
           
           
           <div className="col-span-1 lg:col-start-2 lg:col-end-4 rounded-lg bg-[#2a302f] h-[350px] p-4">
@@ -160,17 +162,15 @@ React.useEffect(() => {
          
         </div>
       ) : (
-        <div className="flex justify-center space-x-[200px]">
-          <h2 className="text-lg sm:text-2xl font-semibold">
-            Transaction Viewer 👀
-          </h2>
+        <div className="flex justify-center mt-[200px] space-x-[200px]">
+         
           <button
             onClick={() => {
               toast.error("Please connect wallet!");
             }}
-            className="bg-helius-orange rounded-lg py-1 sm:py-2 px-4 font-semibold transition-all duration-200 border-2 border-transparent hover:border-helius-orange disabled:opacity-50 disabled:hover:bg-helius-orange hover:bg-transparent disabled:cursor-not-allowed"
+            className="bg-[#9E2A3A]  rounded-lg py-1 sm:py-2 px-4 font-semibold transition-all duration-200 border-2 border-transparent hover:border-helius-orange disabled:opacity-50 disabled:hover:bg-helius-orange hover:bg-transparent disabled:cursor-not-allowed"
           >
-            Call Transactions
+            Generate Wallet Proof Of Funds
           </button>
         </div>
       )}
