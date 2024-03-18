@@ -20,6 +20,9 @@ body {
   background-image: linear-gradient(to right, #FC8128 ,  #DD3654);
 }
 
+
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

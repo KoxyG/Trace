@@ -21,6 +21,7 @@ const Navbar = () => {
       </nav>
             <button className='!bg-[#9E2A3A] p-4 text-white hover:!bg-black transition-all duration-200 !rounded-lg'> Connect Wallet </button>
         </header>
+            // <WalletMultiButton className='!bg-[#9E2A3A] hover:!bg-[#9E2A3A] transition-all duration-200 !rounded-lg' />
     );
 };
 
