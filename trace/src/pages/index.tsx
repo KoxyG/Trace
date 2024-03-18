@@ -150,9 +150,9 @@ const Home = () => {
         </div>
       ) : (
         <div>
-          <div className="flex">
+          <div className="sm:flex ">
             <div>
-              <h2 className="pt-[100px] mx-[30px] font-extrabold sm:text-[40px]">
+              <h2 className="pt-[100px] mx-[30px] font-extrabold text-[30px] sm:text-[40px]">
                 Securely Verify Cryptocurrency Holdings
               </h2>
               <p className="mx-[30px] pt-[20px]">
@@ -163,7 +163,7 @@ const Home = () => {
             <Image src={"/image.png"} alt="image" height={500} width={500} />
           </div>
 
-          <div className="flex justify-center mt-[80px] space-x-[200px]">
+          <div className="flex mb-[100px] justify-center mt-[80px] space-x-[200px]">
             <button
               onClick={() => {
                 toast.error("Please connect wallet!");
