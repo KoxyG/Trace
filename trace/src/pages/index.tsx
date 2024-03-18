@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/outline";
 // library we use to interact with the solana json rpc api
 import * as web3 from "@solana/web3.js";
+import { list } from "postcss";
 
 const Home = () => {
   // react state variables
@@ -22,21 +23,30 @@ const Home = () => {
   const { connection } = useConnection(); // grab wallet connection string
   const { publicKey } = useWallet(); // grab wallet pubkey
 
+  const HELIUS_API_KEY = "846d3486-6615-4481-805c-0ad58f99958a"
+  
+
   const generateExplorerLink = (walletAddress: string) => {
     return `https://solscan.io/account/${walletAddress}?cluster=devnet#portfolio`;
   };
+
+
+React.useEffect(() => {
+  const assetsUrl = `https://api.helius.xyz/v0/assets?ownerAddress=${publicKey}&page=1&limit=1000&api-key=${HELIUS_API_KEY}`;
+   setParseHistoryUrl(assetsUrl);
+}, [publicKey]);
+
 
   const generateProof = async () => {
     if (balance >= amount!) {
       toast.success("Proof verified and generated!");
       setVerified(true);
-      const explorerLink = generateExplorerLink(publicKey!.toBase58());
-      console.log("Explorer Link:", explorerLink);
+      // const explorerLink = generateExplorerLink(publicKey!.toBase58());
+      // console.log("Explorer Link:", explorerLink);
 
-      // api call to get tx history for wallet
-      const response = await fetch(explorerLink);
-      const data = await response.json();
-
+      const assetsResponse = await fetch(parseHistoryUrl);
+      const data = await assetsResponse.json();
+      console.log("Assets by Owner: ", data);
       // set state of tx sigs
       setListOfTxs(data);
       console.log("parsed transaction history", data);
@@ -44,6 +54,21 @@ const Home = () => {
       toast.error(
         "Verification failed. Insufficient funds detected for the specified amount"
       );
+    }
+  };
+
+  const downloadData = () => {
+    if (listOfTxs) {
+      const textData = JSON.stringify(listOfTxs, null, 2);
+      const blob = new Blob([textData], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Proof_of_funds.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    } else {
+      toast.error("No data to download");
     }
   };
 
@@ -63,6 +88,8 @@ const Home = () => {
     <main className="min-h-screen text-white">
       {publicKey ? (
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
+          
+          
           <div className="col-span-1 lg:col-start-2 lg:col-end-4 rounded-lg bg-[#2a302f] h-[350px] p-4">
             <div className="mt-8 bg-[#222524] border-2 border-gray-500 rounded-lg p-2">
               <ul className="p-2">
@@ -76,7 +103,7 @@ const Home = () => {
                 <li className="text-sm mt-4 flex justify-between">
                   <p className="tracking-wider">Balance...</p>
                   <p className="text-helius-orange italic font-semibold">
-                    {balance}
+                    {balance} sol
                   </p>
                 </li>
               </ul>
@@ -122,7 +149,7 @@ const Home = () => {
              
               <button
                 className="flex text-[#80ebff] italic hover:text-white transition-all duration-200"
-                
+                onClick={downloadData}
               >
                 Download Proof
                 <DocumentTextIcon className="w-5 ml-1" />
