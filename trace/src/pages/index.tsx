@@ -18,25 +18,22 @@ const Home = () => {
   const [displayDetails, setDisplayDetails] = React.useState<boolean>(false);
   const [verified, setVerified] = React.useState<boolean>(false);
   const [transactionDetails, setTransactionDetails] = React.useState<{}>({});
-  const [balance, setBalance] = React.useState<number >(0);
+  const [balance, setBalance] = React.useState<number>(0);
   const [amount, setAmount] = React.useState<number | null>(0);
   const [txSig, setTxSig] = React.useState<string>("");
   const { connection } = useConnection(); // grab wallet connection string
   const { publicKey } = useWallet(); // grab wallet pubkey
 
-  const HELIUS_API_KEY = "846d3486-6615-4481-805c-0ad58f99958a"
-  
+  const HELIUS_API_KEY = "846d3486-6615-4481-805c-0ad58f99958a";
 
   const generateExplorerLink = (walletAddress: string) => {
     return `https://solscan.io/account/${walletAddress}?cluster=devnet#portfolio`;
   };
 
-
-React.useEffect(() => {
-  const assetsUrl = `https://api.helius.xyz/v0/assets?ownerAddress=${publicKey}&page=1&limit=1000&api-key=${HELIUS_API_KEY}`;
-   setParseHistoryUrl(assetsUrl);
-}, [publicKey]);
-
+  React.useEffect(() => {
+    const assetsUrl = `https://api.helius.xyz/v0/assets?ownerAddress=${publicKey}&page=1&limit=1000&api-key=${HELIUS_API_KEY}`;
+    setParseHistoryUrl(assetsUrl);
+  }, [publicKey]);
 
   const generateProof = async () => {
     if (balance >= amount!) {
@@ -61,11 +58,11 @@ React.useEffect(() => {
   const downloadData = () => {
     if (listOfTxs) {
       const textData = JSON.stringify(listOfTxs, null, 2);
-      const blob = new Blob([textData], { type: 'text/plain' });
+      const blob = new Blob([textData], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = 'Proof_of_funds.txt';
+      a.download = "Proof_of_funds.txt";
       a.click();
       URL.revokeObjectURL(url);
     } else {
@@ -87,18 +84,8 @@ React.useEffect(() => {
 
   return (
     <main className="min-h-screen  text-white">
-      <div className="flex">
-      <div>
-      <h2 className="pt-[100px] mx-[30px] font-extrabold sm:text-[40px]">Securely Verify Cryptocurrency Holdings</h2>
-      <p className="mx-[30px] pt-[20px]">Confidently demonstrate ownership of your digital assets without compromising privacy.</p>
-      </div>
-        <Image src={"/image.png"} alt="image" height={500} width={500} />
-      </div>
-      
       {publicKey ? (
         <div className="grid grid-cols-1 bg-[#FC8128] lg:grid-cols-4 gap-4 p-4">
-          
-          
           <div className="col-span-1 lg:col-start-2 lg:col-end-4 rounded-lg bg-[#2a302f] h-[350px] p-4">
             <div className="mt-8 bg-[#222524] border-2 border-gray-500 rounded-lg p-2">
               <ul className="p-2">
@@ -136,49 +123,56 @@ React.useEffect(() => {
                 }}
               />
             </div>
-              
-            {!verified ? (  
-            <div className="flex pt-4 justify-between items-center">
-              <h2 className="font-bold text-xl">Generate Proof 💸</h2>
-              <button
-                onClick={generateProof}
-                disabled={!publicKey || !amount}
-                className="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#fa6ece] bg-[#fa6ece] rounded-lg w-24 py-1 font-semibold transition-all duration-200 hover:bg-transparent border-2 border-transparent hover:border-[#fa6ece]"
-              >
-                Submit
-              </button>
-            </div>
-           
+
+            {!verified ? (
+              <div className="flex pt-4 justify-between items-center">
+                <h2 className="font-bold text-xl">Generate Proof 💸</h2>
+                <button
+                  onClick={generateProof}
+                  disabled={!publicKey || !amount}
+                  className="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#fa6ece] bg-[#fa6ece] rounded-lg w-24 py-1 font-semibold transition-all duration-200 hover:bg-transparent border-2 border-transparent hover:border-[#fa6ece]"
+                >
+                  Submit
+                </button>
+              </div>
             ) : (
-            <div
-              className={`flex justify-center items-center ${
-               "mt-6"
-              }`}
-            >
-             
-              <button
-                className="flex text-[#80ebff] italic hover:text-white transition-all duration-200"
-                onClick={downloadData}
-              >
-                Download Proof
-                <DocumentTextIcon className="w-5 ml-1" />
-              </button>
-            </div>
+              <div className={`flex justify-center items-center ${"mt-6"}`}>
+                <button
+                  className="flex text-[#80ebff] italic hover:text-white transition-all duration-200"
+                  onClick={downloadData}
+                >
+                  Download Proof
+                  <DocumentTextIcon className="w-5 ml-1" />
+                </button>
+              </div>
             )}
           </div>
-         
         </div>
       ) : (
-        <div className="flex justify-center mt-[80px] space-x-[200px]">
-         
-          <button
-            onClick={() => {
-              toast.error("Please connect wallet!");
-            }}
-            className="bg-[#9E2A3A]  rounded-lg py-1 sm:py-2 px-4 font-semibold transition-all duration-200 border-2 border-transparent hover:border-helius-orange disabled:opacity-50 disabled:hover:bg-helius-orange hover:bg-transparent disabled:cursor-not-allowed"
-          >
-            Generate Wallet Proof Of Funds
-          </button>
+        <div>
+          <div className="flex">
+            <div>
+              <h2 className="pt-[100px] mx-[30px] font-extrabold sm:text-[40px]">
+                Securely Verify Cryptocurrency Holdings
+              </h2>
+              <p className="mx-[30px] pt-[20px]">
+                Confidently demonstrate ownership of your digital assets without
+                compromising privacy.
+              </p>
+            </div>
+            <Image src={"/image.png"} alt="image" height={500} width={500} />
+          </div>
+
+          <div className="flex justify-center mt-[80px] space-x-[200px]">
+            <button
+              onClick={() => {
+                toast.error("Please connect wallet!");
+              }}
+              className="bg-[#9E2A3A]  rounded-lg py-1 sm:py-2 px-4 font-semibold transition-all duration-200 border-2 border-transparent hover:border-helius-orange disabled:opacity-50 disabled:hover:bg-helius-orange hover:bg-transparent disabled:cursor-not-allowed"
+            >
+              Generate Wallet Proof Of Funds
+            </button>
+          </div>
         </div>
       )}
     </main>
