@@ -46,8 +46,8 @@ This decentralized application (DApp) aims to provide users with a secure and co
 - [Link](https://docs.google.com/document/d/10yp5T_0oX2LZspts0xA_54w-8S_HWcy9PQLgUaDZWmg/edit?usp=sharing)
 
  ## Teams
- [Project Manager]()
- [Blockchain Dev](https://x.com/koxy_dev)
- [FrontEnd Dev](https://twitter.com/officialbettin2)
- [Designer](https://twitter.com/trillizion)
+ - [Project Manager]()
+ - [Blockchain Dev](https://x.com/koxy_dev)
+ - [FrontEnd Dev](https://twitter.com/officialbettin2)
+ - [Designer](https://twitter.com/trillizion)
  
